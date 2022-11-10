@@ -1,0 +1,12 @@
+.custom_input_container{
+    width: 100%;
+}
+
+.custom_input{
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    padding: 5px;
+}
