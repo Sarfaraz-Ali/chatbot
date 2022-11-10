@@ -1,4 +1,6 @@
 /venv
+/chatbot_ui/node_modules
+/chatbot_ui/build
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
