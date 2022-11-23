@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 absl-py==1.3.0
 asgiref==3.5.2
 astunparse==1.6.3
@@ -54,3 +55,9 @@ Werkzeug==2.2.2
 windows-curses==2.3.1
 wrapt==1.14.1
 zipp==3.10.0
+=======
+asgiref==3.5.2
+Django==4.1.3
+sqlparse==0.4.3
+tzdata==2022.6
+>>>>>>> 223f24f46e0c6c1d59a1a45d1c12cd033916f9bc
