@@ -1,0 +1,6 @@
+line no:14 change dir
+
+from chatbot_app.model.generate import Generate
+generate = Generate()
+generate.response('gandu')
+
