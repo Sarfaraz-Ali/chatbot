@@ -11,7 +11,8 @@ stemmer = LancasterStemmer()
 class Generate():
     def __init__(self):
         #Need to provide path
-        dir = r'C:\\Users\\ayesh\Documents\\chatbot\\chatbot_app\\model'
+        # dir = r'C:\\Users\\ayesh\Documents\\chatbot\\chatbot_app\\model'
+        dir = r'C:\Users\alish\Documents\chatbot\chatbot_app\model'
         #Restoring all data structures
         data = pickle.load(open(dir + "\\training_data","rb"))
         self.words = data['words']

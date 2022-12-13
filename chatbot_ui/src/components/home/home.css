@@ -1,0 +1,24 @@
+.home-root {
+    height: 90vh;
+    position: relative;
+    margin: 2em 0;
+    /* box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); */
+}
+
+.home-input-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+}
+
+.home-input {
+    width: 92%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-send-button {
+    margin-left: auto;
+    margin-right: auto;
+}

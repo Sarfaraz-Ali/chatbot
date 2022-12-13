@@ -1,12 +1,24 @@
-.custom_input_container{
+.custom_input_container {
     width: 100%;
 }
 
-.custom_input{
+.custom_input {
     height: 100%;
     width: 100%;
     border: 1px solid black;
     border-radius: 5px;
 
     padding: 5px;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }

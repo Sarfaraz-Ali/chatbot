@@ -1,14 +1,21 @@
 import json
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+import model.generate
 
+@csrf_exempt 
 def run(req):
-    age = req.body.decode()
-    age = json.loads(age)
-    age["Age"] = int(age["Age"]) + 100
-    print(age)
-    # return "Hello Sarfaraz"
-    # return HttpResponse("Hello Sarfaraz")
-    return JsonResponse(age)
+    # data = json.loads(req.body.decode())
+    # question = data["question"]
+    # print(question)
+    # return HttpResponse(question)
+    print(req)
+    model.generate.say_hello()
+    generate = model.generate.Generate()
+    generate.response(req)
+    return True
+
+if __name__=="__main__":
+    run("hi")
