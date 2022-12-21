@@ -11,9 +11,9 @@ stemmer = LancasterStemmer()
 class Generate():
     def __init__(self):
         #Need to provide path
-        dir = r'C:\\Users\\ayesh\Documents\\chatbot\\chatbot_app\\model'
+        dir = os.path.dirname(os.path.abspath('__file__'))
         #Restoring all data structures
-        data = pickle.load(open(dir + "\\training_data","rb"))
+        data = pickle.load(open(dir + "\\chatbot_app\\model\\training_data","rb"))
         self.words = data['words']
         self.classes = data['classes']
         train_x = data['train_x']
@@ -29,10 +29,10 @@ class Generate():
         #Defining Model and setting up tensorboard
         self.model = tflearn.DNN(net, tensorboard_dir="tflearn_logs") 
 
-        self.model.load(dir + "\model.tflearn") #Loading the model
+        self.model.load(dir + "\\chatbot_app\\model\\model.tflearn") #Loading the model
 
         # importing our intent file used for training the model.
-        with open(dir+"\intents.json") as json_data: 
+        with open(dir+"\\chatbot_app\\model\\intents.json") as json_data: 
             self.intents = json.load(json_data)      # Loading data from intents.json file to var intents
 
     def clean_up_sentence(self, sentence):
