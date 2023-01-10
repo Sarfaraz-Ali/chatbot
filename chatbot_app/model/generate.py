@@ -98,6 +98,7 @@ class Generate():
                             if show_details: print ('tag:', i['tag'])
                             
                             #A random response from the intent
-                            return print(random.choice(i['responses']))
+                            print(random.choice(i['responses']))
+                            return random.choice(i['responses'])
 
                 results.pop(0)

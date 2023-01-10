@@ -3,19 +3,18 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-import model.generate
+from .model.generate import Generate
+
+gen = Generate()
 
 @csrf_exempt 
 def run(req):
-    # data = json.loads(req.body.decode())
-    # question = data["question"]
-    # print(question)
-    # return HttpResponse(question)
-    print(req)
-    model.generate.say_hello()
-    generate = model.generate.Generate()
-    generate.response(req)
-    return True
+    data = json.loads(req.body.decode())
+    question = data["message"]
+    print(question)
+    res = gen.response(question)
+    """ return HttpResponse(res) """
+    return JsonResponse({"answer": res})
 
-if __name__=="__main__":
-    run("hi")
+""" if __name__=="__main__":
+    run("hi") """

@@ -5,8 +5,10 @@ import send_button from "../send_button/send_button";
 import sent_bubble from "../sent_bubble/sent_bubble";
 import received_bubble from "../received_bubble/received_bubble";
 
-import "./home.css";
+import axios from 'axios';
 
+import "./home.css";
+axios.defaults.withCredentials = true;
 const Home = () => {
     const [mymessage, setMyMessage] = useState("")
     const [messages, setMessages] = useState([
@@ -15,14 +17,21 @@ const Home = () => {
         },
         {
             "received": "Hello"
-        },
-        {
-            "sent": "whats up"
-        },
-        {
-            "received": "nothing much"
         }
     ])
+
+    var get_response = async (question) => {
+        axios.post(`${process.env.REACT_APP_URL}chatbot/run/`, { 'message': question }).then((response) => {
+            console.log(response)
+            console.log("in get_response: ", messages);
+            var temp = messages.slice()
+            temp.push({ "received": response.data.answer });
+            setMessages(temp)
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
     var chat = () => {
         var arr = []
         var i = 0
@@ -42,18 +51,21 @@ const Home = () => {
     }
 
     var onkeydown = (e) => {
-        if(e.key === "Enter"){
+        if (e.key === "Enter") {
             console.log(e.key)
-            onclick();
+            enterClick();
         }
     }
 
-    var onclick = () => {
-        console.log("ali");
+    var enterClick = () => {
         if (mymessage !== "") {
             var temp = messages.slice()
             temp.push({ "sent": mymessage });
             setMessages(temp)
+            console.log("in enterClick: ", messages);
+            console.log("sent set")
+            get_response(mymessage)
+            console.log("received set")
         }
         setMyMessage("")
         console.log(messages)
@@ -68,7 +80,7 @@ const Home = () => {
                     {input((e) => onchange(e), mymessage, onkeydown)}
                 </div>
                 <div className="home-send-button">
-                    {send_button(onclick)}
+                    {send_button(enterClick)}
                 </div>
             </div>
         </div>
