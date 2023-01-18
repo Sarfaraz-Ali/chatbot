@@ -1,6 +1,6 @@
 import "./input.css";
 
-var input = (onchange, value, onkeydown) => {
+var input = (onchange, value, onkeydown, placeholder) => {
     return(
         <div className = "custom_input_container">
             <input 
@@ -10,6 +10,7 @@ var input = (onchange, value, onkeydown) => {
                 onChange={onchange}
                 value={value}
                 onKeyDown={onkeydown}
+                placeholder={placeholder}
             />
         </div>
     )

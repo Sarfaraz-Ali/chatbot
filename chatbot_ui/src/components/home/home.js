@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import input from '../input/input';
 import send_button from "../send_button/send_button";
 
@@ -11,24 +11,25 @@ import "./home.css";
 axios.defaults.withCredentials = true;
 const Home = () => {
     const [mymessage, setMyMessage] = useState("")
-    const [messages, setMessages] = useState([
-        {
-            "sent": "Hi"
-        },
-        {
-            "received": "Hello"
-        }
-    ])
+    const [messages, setMessages] = useState([])
 
-    var get_response = async (question) => {
+    const myref = useRef(null)
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages, mymessage]);
+
+    const scrollToBottom = () => {
+        myref.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    var get_response = (question, callback) => {
         axios.post(`${process.env.REACT_APP_URL}chatbot/run/`, { 'message': question }).then((response) => {
-            console.log(response)
-            console.log("in get_response: ", messages);
-            var temp = messages.slice()
-            temp.push({ "received": response.data.answer });
-            setMessages(temp)
+            console.log("response: ", response.data);
+            callback(question, response.data.answer)
         }).catch((err) => {
             console.log(err);
+            callback(null, null)
         })
     }
 
@@ -52,32 +53,33 @@ const Home = () => {
 
     var onkeydown = (e) => {
         if (e.key === "Enter") {
-            console.log(e.key)
             enterClick();
+        }
+    }
+
+    var updateMessages = (mymessage, newMessage) => {
+        if (newMessage != null) {
+            var temp = messages.slice()
+            temp.push({ "sent": mymessage }, { "received": newMessage });
+            setMessages(temp)
         }
     }
 
     var enterClick = () => {
         if (mymessage !== "") {
-            var temp = messages.slice()
-            temp.push({ "sent": mymessage });
-            setMessages(temp)
-            console.log("in enterClick: ", messages);
-            console.log("sent set")
-            get_response(mymessage)
-            console.log("received set")
+            get_response(mymessage, updateMessages)
         }
         setMyMessage("")
-        console.log(messages)
     }
     return (
         <div className="home-root">
             <div className="home-chat-container">
                 {chat()}
+                <div ref={myref}></div>
             </div>
             <div className="home-input-container">
                 <div className="home-input">
-                    {input((e) => onchange(e), mymessage, onkeydown)}
+                    {input((e) => onchange(e), mymessage, onkeydown, "Type your message")}
                 </div>
                 <div className="home-send-button">
                     {send_button(enterClick)}

@@ -5,6 +5,11 @@
     /* box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%); */
 }
 
+.home-chat-container{
+    height: 80vh;
+    overflow-y: scroll;
+}
+
 .home-input-container {
     position: absolute;
     bottom: 0;
@@ -21,4 +26,6 @@
 .home-send-button {
     margin-left: auto;
     margin-right: auto;
+    align-self: center;
+
 }
